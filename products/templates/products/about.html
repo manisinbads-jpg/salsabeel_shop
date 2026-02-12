@@ -1,0 +1,79 @@
+{% extends "products/base.html" %}
+{% load static %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section style="background:#111827; padding:70px 20px;">
+    <div class="container text-center">
+        <img src="{% static 'images/logo.png' %}"
+             alt="Salsabeel Hardware"
+             style="max-width:140px; margin-bottom:20px;">
+
+        <h1 class="fw-bold text-warning">Salsabeel Hardware</h1>
+        <p class="text-light mt-2">
+            Reliable hardware solutions you can trust
+        </p>
+    </div>
+</section>
+
+<!-- WHO WE ARE -->
+<section class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-9 text-center">
+
+            <h3 class="fw-bold mb-3">Who We Are</h3>
+
+            <p class="fs-5 text-muted">
+                Salsabeel Hardware is a trusted supplier of quality construction
+                and hardware materials. We proudly serve individuals, contractors,
+                and businesses with dependable products at fair prices.
+            </p>
+
+        </div>
+    </div>
+</section>
+
+<!-- WHAT WE OFFER -->
+<section class="bg-light py-5">
+    <div class="container">
+        <h3 class="fw-bold mb-4 text-center">What We Offer</h3>
+
+        <div class="row text-center g-4">
+            <div class="col-md-3">
+                🔧 <strong>Plumbing Materials</strong>
+            </div>
+            <div class="col-md-3">
+                ⚡ <strong>Electrical Accessories</strong>
+            </div>
+            <div class="col-md-3">
+                🧱 <strong>Construction Tools</strong>
+            </div>
+            <div class="col-md-3">
+                🏠 <strong>Tiles, Pipes & Fittings</strong>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-9 text-center">
+
+            <h3 class="fw-bold mb-3">Why Choose Salsabeel</h3>
+
+            <p class="fs-5">
+                ✔  Trusted supplier<br>
+                ✔  Quality materials<br>
+                ✔  Fair pricing<br>
+                ✔  Customer-first service
+            </p>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

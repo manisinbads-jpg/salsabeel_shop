@@ -1,0 +1,68 @@
+{% extends "products/base.html" %}
+{% load humanize %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="text-center mb-5">Checkout</h2>
+
+    {% if cart_items %}
+    <div class="table-responsive">
+        <table class="table table-bordered text-center" style="table-layout: fixed;">
+            <thead class="table-dark">
+                <tr>
+                    <th style="width:40%;">Product</th>
+                    <th style="width:20%;">Price (TZS)</th>
+                    <th style="width:20%;">Quantity</th>
+                    <th style="width:20%;">Subtotal (TZS)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td class="text-start d-flex align-items-center">
+                        {% if item.product.image %}
+                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}"
+                             class="img-thumbnail me-3" style="width:60px; height:60px; object-fit:cover;">
+                        {% endif %}
+                        {{ item.product.name }}
+                    </td>
+                    <td>{{ item.product.price|intcomma }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.subtotal|intcomma }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-4">
+        <h4>Total: <span class="text-success">{{ total|intcomma }} TZS</span></h4>
+    </div>
+
+    <label class="fw-bold">Payment Method</label>
+
+      <form action="{% url 'orders:create' %}" method="post" class="mt-4">
+    {% csrf_token %}
+
+    <label class="fw-bold">Payment Method</label>
+    <select name="payment_method" class="form-select mb-3" required>
+        <option value="">-- Select Payment Method --</option>
+        <option value="cash">Cash on Delivery</option>
+        <option value="mobile">Mobile Money</option>
+        <option value="card">Card Payment</option>
+    </select>
+
+    <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-success btn-lg">
+            Place Order
+        </button>
+    </div>
+</form>
+    {% else %}
+    <div class="text-center py-5">
+        <p class="fs-5">Your cart is empty.</p>
+        <a href="{% url 'products:product_list' %}" class="btn btn-primary btn-lg mt-3">Go Shopping</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

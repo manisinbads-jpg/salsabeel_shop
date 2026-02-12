@@ -1,0 +1,96 @@
+{% extends "products/base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="text-center mb-5" style="color:#FFD700;">Shopping Cart</h2>
+
+    {% if cart_items %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover" style="table-layout: fixed; text-align: center;">
+            <thead style="background-color:#333; color:#FFD700;">
+                <tr>
+                    <th style="width:40%;">Product</th>
+                    <th style="width:15%;">Price</th>
+                    <th style="width:15%;">Quantity</th>
+                    <th style="width:15%;">Subtotal</th>
+                    <th style="width:15%;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td class="d-flex align-items-center text-start" style="gap:10px;">
+                        {% if item.product.image %}
+                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}"
+                             style="width:60px; height:60px; object-fit:cover; border-radius:5px;">
+                        {% endif %}
+                        <span style="line-height:60px; display:inline-block;">{{ item.product.name }}</span>
+                    </td>
+                    <td style="vertical-align: middle;">{{ item.product.price }} TZS</td>
+                    <td style="vertical-align: middle;">
+                        <span class="badge bg-secondary" style="font-size:1rem;">{{ item.quantity }}</span>
+                    </td>
+                    <td style="vertical-align: middle;">{{ item.subtotal }} TZS</td>
+                    <td style="vertical-align: middle;">
+                        <a href="{% url 'cart:remove' item.product.id %}"
+                           class="btn btn-sm" style="background-color:#FFD700; color:#000; font-weight:bold;">Remove</a>
+                        <td>{{ item.variant.size }}</td>
+                        <td>{{ item.variant.color }}</td>
+                        <td>{{ item.variant.price }}</td>
+
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Total -->
+    <div class="d-flex justify-content-end mt-3 mb-4">
+        <h4 style="color:#000;">Total: <span style="color:#FFD700;">{{ total }} TZS</span></h4>
+    </div>
+
+<a href="{% url 'products:product_list' %}" class="btn btn-lg"
+           style="background-color:#333; color:#FFD700; font-weight:bold;">Go Shopping</a>
+
+    <!-- Buttons: left Checkout/Continue, right Place Order -->
+<form method="post" action="{% url 'orders:create' %}">
+    {% csrf_token %}
+
+    <h4>Select Payment Method</h4>
+
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="payment_method" value="CASH" id="cash">
+        <label class="form-check-label" for="cash">
+            Cash on Delivery
+        </label>
+    </div>
+
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="payment_method" value="MOBILE-MONEY" id="mobile-money">
+        <label class="form-check-label" for="mobile-money">
+            Mobile Money
+        </label>
+    </div>
+
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="payment_method" value="Bank-Account" id="bank-account">
+        <label class="form-check-label" for="bank-account">
+            Bank Account
+        </label>
+    </div>
+
+    <button type="submit" class="btn btn-success mt-3">
+        Place Order
+    </button>
+</form>
+
+    {% else %}
+    <div class="text-center py-5">
+        <p class="fs-5" style="color:#000;">Your cart is empty.</p>
+        <a href="{% url 'products:product_list' %}" class="btn btn-lg"
+           style="background-color:#333; color:#FFD700; font-weight:bold;">Go Shopping</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

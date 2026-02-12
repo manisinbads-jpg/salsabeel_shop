@@ -1,0 +1,143 @@
+{% extends "products/base.html" %}
+{% load static %}
+{% block title %}Salsabeel Hardware - Home{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="hero" style="
+    background:
+        linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+        url('{% static 'images/hero-bg1.jpg' %}');
+    background-size: cover;
+    background-position: center;
+    padding: 100px 20px;
+">
+    <div class="container">
+        <div class="hero-inner text-center">
+            <h1 style="
+                color:#FFD700;
+                font-weight:800;
+                letter-spacing:1.5px;
+            ">
+                YOUR HARDWARE HEAVEN
+            </h1>
+            <p class="hero-sub mt-3">
+                Tools • Lighting • Plumbing • Construction • Renovation
+            </p>
+            <div class="mt-4 d-flex justify-content-center gap-3 flex-wrap">
+                <a href="{% url 'products:product_list' %}" class="btn btn-warning fw-bold px-4 py-2">
+                    Shop Now
+                </a>
+                <a href="{% url 'products:product_list' %}?filter=new" class="btn btn-outline-warning fw-bold px-4 py-2">
+                    New Arrivals
+                </a>
+                <a href="{% url 'products:product_list' %}?filter=promo" class="btn btn-dark fw-bold px-4 py-2">
+                    Promotions
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BUSINESS WORDS -->
+<section class="py-5 bg-light">
+    <div class="container text-center">
+        <p class="fs-5 mb-3">
+            Welcome to <strong>Salsabeel Hardware</strong>, your trusted destination for
+            quality tools and building materials.
+        </p>
+        <p class="fs-5 mb-3">
+            We proudly serve contractors, professionals, and home builders with
+            reliable products at competitive prices.
+        </p>
+        <p class="fs-5 fw-bold text-warning">
+            Build with confidence. Build with Salsabeel.
+        </p>
+    </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center fw-bold text-dark mb-2">Shop by Category</h2>
+        <div class="d-flex justify-content-center mb-4">
+            <div style="width:80px;height:4px;background:#FFD700;border-radius:10px;"></div>
+        </div>
+        <div class="category-grid">
+            {% for category in categories %}
+                <a href="{% url 'products:product_list' %}?category={{ category.id }}" class="category-card">
+                    <img src="{% if category.image %}{{ category.image.url }}{% else %}{% static 'images/category-placeholder.jpg' %}{% endif %}" alt="{{ category.name }}">
+                    <span>{{ category.name }}</span>
+                </a>
+            {% empty %}
+                <p class="text-center">No categories available.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- NEW PRODUCTS -->
+{% if new_products %}
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-4">New Arrivals</h2>
+        <div class="d-flex gap-3 flex-wrap justify-content-center">
+            {% for product in new_products %}
+            <div class="card" style="width: 18rem;">
+                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'images/category-placeholder.jpg' %}{% endif %}" class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text fw-bold text-warning">TZS {{ product.base_price }}</p>
+                    <a href="{% url 'products:product_detail' product.slug %}" class="btn btn-primary btn-sm">View</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- PROMO PRODUCTS -->
+{% if promo_products %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-4">Promotions</h2>
+        <div class="d-flex gap-3 flex-wrap justify-content-center">
+            {% for product in promo_products %}
+            <div class="card" style="width: 18rem;">
+                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'images/category-placeholder.jpg' %}{% endif %}" class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text fw-bold text-warning">TZS {{ product.base_price }}</p>
+                    <a href="{% url 'products:product_detail' product.slug %}" class="btn btn-primary btn-sm">View</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- VIDEO -->
+<section class="py-5">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-4">Inside Salsabeel Hardware</h2>
+        <div class="cert-frame d-flex justify-content-center">
+            <video controls style="max-width:100%; border-radius:10px;">
+                <source src="{% static 'videos/salsabeel.mp4' %}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+</section>
+
+<!-- FLOATING WHATSAPP BUTTON -->
+<a href="https://wa.me/255700000000"
+   class="whatsapp-float"
+   target="_blank"
+   title="Chat with us on WhatsApp">
+    <i class="fab fa-whatsapp fa-2x"></i>
+</a>
+
+{% endblock %}

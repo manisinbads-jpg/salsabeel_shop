@@ -1,0 +1,80 @@
+{% extends "products/base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+
+                    <h3 class="text-center mb-3 fw-bold">
+                        Create Account
+                    </h3>
+
+                    <p class="text-center text-muted mb-4">
+                        Register to continue shopping at Salsabeel Hardware
+                    </p>
+
+                    <form method="POST" novalidate>
+                        {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
+
+                        <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            {{ form.username }}
+                            {{ form.username.errors }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email Address</label>
+                            {{ form.email }}
+                            {{ form.email.errors }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Phone Number</label>
+                            {{ form.phone_number }}
+                            {{ form.phone_number.errors }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            {{ form.password1 }}
+                            {{ form.password1.errors }}
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Confirm Password</label>
+                            {{ form.password2 }}
+                            {{ form.password2.errors }}
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                Register
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-4">
+                        <small class="text-muted">
+                            Already have an account?
+                            <a href="{% url 'accounts:login' %}" class="fw-semibold">
+                                Login
+                            </a>
+                        </small>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

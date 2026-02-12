@@ -1,0 +1,17 @@
+main {
+    padding: 30;
+    text-decoration: wavy;
+}
+main .p {
+    text-decoration-color: yellow;
+
+}
+.col-md-4 {
+    transform-box: 30;
+
+}
+.col-md-4 li {
+  background-color: lightsalmon;
+  text-align: right;
+  
+}

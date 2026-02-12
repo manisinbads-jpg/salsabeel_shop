@@ -1,0 +1,17 @@
+{% extends "products/base.html" %}
+{% block content %}
+
+<div class="container mt-5" style="max-width:400px;">
+    <h3 class="text-center mb-4">Login</h3>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button class="btn btn-warning w-100 fw-bold">
+            Login
+        </button>
+    </form>
+</div>
+
+{% endblock %}

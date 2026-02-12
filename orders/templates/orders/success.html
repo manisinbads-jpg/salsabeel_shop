@@ -1,0 +1,15 @@
+{% extends "products/base.html" %}
+{% load humanize %}
+
+{% block content %}
+<div class="container text-center mt-5">
+  <h2 class="text-success">🎉 Order Successful</h2>
+  <p>Order ID: <strong>#{{ order.id }}</strong></p>
+  <p>Total: <strong>{{ order.get_total_cost|intcomma }} TZS</strong></p>
+  <p>Payment: {{ order.get_payment_method_display }}</p>
+
+  <a href="{% url 'products:product_list' %}" class="btn btn-primary mt-3">
+    Continue Shopping
+  </a>
+</div>
+{% endblock %}

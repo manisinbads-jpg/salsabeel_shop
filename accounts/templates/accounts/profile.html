@@ -1,0 +1,58 @@
+{% extends "products/base.html" %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg border-0">
+
+                <!-- Header -->
+                <div class="card-header bg-dark text-warning text-center">
+                    <h4 class="mb-0">👤 My Profile</h4>
+                </div>
+
+                <!-- Body -->
+                <div class="card-body p-4">
+
+                    <div class="mb-3">
+                        <label class="form-label text-muted">Username</label>
+                        <div class="form-control bg-light">
+                            {{ user.username }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-muted">Email</label>
+                        <div class="form-control bg-light">
+                            {{ user.email }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-muted">Phone Number</label>
+                        <div class="form-control bg-light">
+                            {{ user.profile.phone_number|default:"Not provided" }}
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Footer -->
+                <div class="card-footer bg-light d-flex justify-content-between">
+                    <a href="{% url 'password_change' %}" class="btn btn-outline-dark">
+                        🔑 Change Password
+                    </a>
+                    <a href="{% url 'orders:history' %}" class="btn btn-warning fw-bold">
+                        🧾 My Orders
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

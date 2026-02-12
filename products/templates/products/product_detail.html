@@ -1,0 +1,84 @@
+{% extends "products/base.html" %}
+{% load static %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+
+<div style="display:flex; gap:40px; flex-wrap:wrap;">
+
+    <!-- PRODUCT IMAGES -->
+    <div>
+        {% if product.image %}
+            <img src="{{ product.image.url }}" style="width:350px; object-fit:cover;">
+        {% endif %}
+
+        {% if product.images.all %}
+            <div style="display:flex; gap:10px; margin-top:10px;">
+                {% for img in product.images.all %}
+                    <img src="{{ img.image.url }}" style="width:100px; object-fit:cover;">
+                {% endfor %}
+            </div>
+        {% endif %}
+        <script>
+function changeImage(src) {
+    document.getElementById("mainImage").src = src;
+}
+</script>
+
+    </div>
+
+    <!-- PRODUCT INFO -->
+    <div>
+        <h2>{{ product.name }}</h2>
+        <p>{{ product.description }}</p>
+        <h3>TZS {{ product.price }}</h3>
+
+       <form method="post" action="{% url 'cart:add_to_cart' product.id %}">
+    {% csrf_token %}
+
+    <!-- Size -->
+    <div class="mb-3">
+        <label class="form-label">Size</label>
+        <select name="size" class="form-select" required>
+            <option value="">Select Size</option>
+            {% for variant in variants %}
+                <option value="{{ variant.size }}">
+                    {{ variant.size }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Color -->
+    <div class="mb-3">
+        <label class="form-label">Color</label>
+        <select name="color" class="form-select" required>
+            <option value="">Select Color</option>
+            {% for variant in variants %}
+                <option value="{{ variant.color }}">
+                    {{ variant.color }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Quantity -->
+    <div class="mb-3">
+        <label class="form-label">Quantity</label>
+        <input type="number" name="quantity" value="1" min="1" class="form-control">
+    </div>
+
+    <button type="submit" class="btn btn-dark w-100">
+        Add to Cart
+    </button>
+</form>
+
+
+        <br>
+        <a href="{% url 'products:product_list' %}">← Back to Shop</a>
+    </div>
+
+</div>
+
+{% endblock %}

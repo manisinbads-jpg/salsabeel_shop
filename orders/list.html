@@ -1,0 +1,47 @@
+{% extends "products/base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="text-center mb-4">My Orders</h2>
+
+    {% if orders %}
+    <div class="table-responsive">
+        <table class="table table-bordered text-center align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Order ID</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.created_at|date:"M d, Y H:i" }}</td>
+                    <td>
+                        {% if order.is_completed %}
+                            <span class="badge bg-success">Completed</span>
+                        {% else %}
+                            <span class="badge bg-warning">Pending</span>
+                        {% endif %}
+                    </td>
+                    <td>${{ order.total }}</td>
+                    <td>
+                        <a href="{% url 'orders:order_detail' order.id %}" class="btn btn-sm btn-primary">View</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+        <p class="fs-5">You have no orders yet.</p>
+        <a href="{% url 'products:product_list' %}" class="btn btn-primary mt-3">Shop Now</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

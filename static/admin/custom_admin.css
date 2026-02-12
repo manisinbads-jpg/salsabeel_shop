@@ -1,0 +1,19 @@
+/* Admin Header */
+#header {
+    background: #0f172a;
+}
+
+#header h1 a {
+    color: #facc15 !important;
+}
+
+/* Buttons */
+.button, input[type=submit] {
+    background: #0f172a;
+    border-radius: 6px;
+}
+
+/* Table hover */
+tr:hover {
+    background-color: #f8fafc;
+}

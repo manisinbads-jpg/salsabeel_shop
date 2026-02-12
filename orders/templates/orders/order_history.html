@@ -1,0 +1,54 @@
+{% extends "products/base.html" %}
+
+{% block title %}Order History{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="mb-4">My Orders</h2>
+
+    {% if orders %}
+    <div class="list-group">
+        {% for order in orders %}
+        <div class="list-group-item mb-3 shadow-sm rounded">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 class="mb-1">Order #{{ order.id }}</h5>
+                    <small class="text-muted">
+                        {{ order.created_at|date:"Y-m-d H:i" }}
+                    </small>
+                </div>
+
+                <span class="badge
+                    {% if order.payment_status == 'PAID' %}bg-success
+                    {% elif order.payment_status == 'PENDING' %}bg-warning
+                    {% else %}bg-secondary{% endif %}">
+                    {{ order.payment_status }}
+                </span>
+            </div>
+
+            <hr>
+
+            <div class="d-flex justify-content-between align-items-center">
+                <strong>Total: {{ order.get_total_cost }} TZS</strong>
+
+                {% if order.payment_status == 'PAID' %}
+                <a href="{% url 'orders:order_invoice' order.id %}"
+                   class="btn btn-outline-primary btn-sm">
+                    ⬇ Download Invoice
+                </a>
+                {% else %}
+                <span class="text-muted small">
+                    Invoice available after payment
+                </span>
+                {% endif %}
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No orders yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

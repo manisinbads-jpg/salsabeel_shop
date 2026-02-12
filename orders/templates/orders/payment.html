@@ -1,0 +1,125 @@
+{% extends "products/base.html" %}
+{% load static %}
+
+{% block title %}Payment{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+
+    <!-- Page Header -->
+    <div class="text-center mb-5">
+        <h2 class="fw-bold">💳 Complete Your Payment</h2>
+        <p class="text-muted">
+            Order #{{ order.id }} • Total:
+            <span class="fw-bold text-warning">{{ order.get_total_cost }} TZS</span>
+        </p>
+    </div>
+
+    <form method="post" action="{% url 'orders:confirm_payment' order.id %}">
+        {% csrf_token %}
+
+        <!-- MOBILE MONEY -->
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input"
+                           type="radio"
+                           name="payment_method"
+                           value="mobile_money"
+                           id="mobile_money"
+                           required>
+                    <label class="form-check-label fw-bold" for="mobile_money">
+                        📱 Mobile Money
+                    </label>
+                </div>
+
+                <p class="mb-1">
+                    Supported Networks:
+                    <strong>YAS • M-Pesa • Airtel • Halotel</strong>
+                </p>
+
+                <p class="mb-3">
+                    Lipa Number:
+                    <span class="fw-bold text-warning fs-5">794 296 633</span>
+                </p>
+
+                <img src="{% static 'images/lipaQr.jpg' %}"
+                     alt="Lipa QR Code"
+                     class="img-fluid rounded border"
+                     style="max-width:200px;">
+            </div>
+        </div>
+
+        <!-- BANK TRANSFER -->
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input"
+                           type="radio"
+                           name="payment_method"
+                           value="bank"
+                           id="bank">
+                    <label class="form-check-label fw-bold" for="bank">
+                        🏦 Bank Transfer
+                    </label>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="mb-1"><strong>Bank Name:</strong> CRDB Bank</p>
+                        <p class="mb-1"><strong>Account Name:</strong> Salsabeel Hardware</p>
+                        <p class="mb-1"><strong>Account Number:</strong> 01J1234567890</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="mb-1"><strong>Branch:</strong> Zanzibar</p>
+                        <p class="mb-1"><strong>Swift Code:</strong> CORUTZTZ</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- CASH ON DELIVERY -->
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+
+                <div class="form-check">
+                    <input class="form-check-input"
+                           type="radio"
+                           name="payment_method"
+                           value="cod"
+                           id="cod">
+                    <label class="form-check-label fw-bold" for="cod">
+                        🚚 Cash on Delivery
+                    </label>
+                </div>
+
+                <small class="text-muted d-block mt-2">
+                    Pay when your order is delivered to you.
+                </small>
+
+            </div>
+        </div>
+
+        <!-- CONFIRM BUTTON -->
+        <div class="d-grid">
+            <button class="btn btn-dark btn-lg fw-bold">
+                ✅ Confirm Payment Method
+            </button>
+        </div>
+
+    </form>
+
+    <!-- WHATSAPP PROOF -->
+    <div class="text-center mt-4">
+        <a class="btn btn-success btn-lg"
+           href="https://wa.me/255794296633?text=Hello%20Salsabeel%20Hardware,%0AOrder%20ID:%20{{ order.id }}%0ATotal:%20TZS%20{{ order.get_total_cost }}%0APayment:%20Mobile%20Money/Bank"
+           target="_blank">
+            📎 Send Payment Proof via WhatsApp
+        </a>
+    </div>
+
+</div>
+{% endblock %}

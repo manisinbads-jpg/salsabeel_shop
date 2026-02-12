@@ -1,0 +1,30 @@
+{% extends "products/base.html" %}
+
+{% block title %}Promotions{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="mb-4">🔥 Promotions</h2>
+
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 border-danger">
+                <img src="{{ product.image.url }}" class="card-img-top">
+                <div class="card-body">
+                    <h6>{{ product.name }}</h6>
+                    <p>
+                        <del>{{ product.price }} TZS</del><br>
+                        <strong class="text-danger">
+                            {{ product.promo_price }} TZS
+                        </strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No promotions available.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

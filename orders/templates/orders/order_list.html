@@ -1,0 +1,19 @@
+{% extends "products/base.html" %}
+{% block content %}
+
+<h2>My Orders</h2>
+
+<ul>
+    {% for order in orders %}
+        <li>
+            Order #{{ order.id }} —
+            {{ order.created|date:"Y-m-d H:i" }} —
+            <a href="{% url 'orders:order_detail' order.id %}">View</a>
+        </li>
+    {% empty %}
+        <li>No orders yet.</li>
+    {% endfor %}
+</ul>
+
+
+{% endblock %}

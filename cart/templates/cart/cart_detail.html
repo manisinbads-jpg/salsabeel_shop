@@ -1,0 +1,43 @@
+{% extends "products/base.html" %}
+{% block content %}
+
+<h2 style="color:#000;">🛒 Your Cart</h2>
+
+
+{% if items %}
+<table style="width:100%; border-collapse:collapse;">
+    <tr style="background:#f5c518; color:#000;">
+        <th>Product</th>
+        <th>Qty</th>
+        <th>Price</th>
+        <th>Subtotal</th>
+        <th></th>
+    </tr>
+
+    {% for item in items %}
+    <tr style="background:#eee;">
+        <td>{{ item.product.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.price }}</td>
+        <td>{{ item.subtotal }}</td>
+        {{ item.variant.product.name }} <br>
+        <td>
+            <a href="{% url 'cart:remove_from_cart' item.product.id %}"
+               style="color:black;">Remove</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h3>Total: <strong>{{ total }}</strong></h3>
+<h4>Total: ${{ cart.get_total_price }}</h4>
+
+
+<a href="#" style="background:black;color:#f5c518;padding:10px;">Checkout</a>
+
+{% else %}
+<p>Your cart is empty.</p>
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,15 @@
+<h2>Your Cart</h2>
+
+{% if cart %}
+<ul>
+    {% for id, item in cart.items %}
+        <li>
+            {{ item.name }} —
+            {{ item.quantity }} {{ item.unit }} —
+            {{ item.price }} each
+        </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Cart is empty</p>
+{% endif %}
