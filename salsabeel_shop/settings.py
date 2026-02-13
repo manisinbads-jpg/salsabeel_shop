@@ -15,7 +15,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+SECRET_KEY = 'django-insecure-7_23%xs+*ln^(dcr1lq=bqsd&hqmka=fq1432fiaeclz#8bgpb'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -119,7 +119,9 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1',
+                 'localhost',
+                 'salsabeelshop-production.up.railway.app', ]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -140,10 +142,6 @@ EMAIL_HOST_USER = 'yourgmail@gmail.com'
 EMAIL_HOST_PASSWORD = 'your-app-password'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-
-
 ADMIN_SITE_HEADER = "Salsabeel Shop Admin"
 ADMIN_SITE_TITLE = "Salsabeel Admin Portal"
 ADMIN_INDEX_TITLE = "Welcome to Salsabeel Dashboard"
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
