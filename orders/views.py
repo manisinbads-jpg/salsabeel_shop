@@ -17,11 +17,15 @@ def success(request, order_id):
     order = get_object_or_404(Order, id=order_id, user=request.user)
     return render(request, 'orders/success.html', {'order': order})
 
+
+
 # ORDER HISTORY
 @login_required
 def order_history(request):
     orders = Order.objects.filter(user=request.user).order_by('-id')
     return render(request, 'orders/history.html', {'orders': orders})
+
+
 
 # ORDER LIST
 @login_required
