@@ -67,7 +67,7 @@
         <div class="category-grid">
             {% for category in categories %}
                 <a href="{% url 'products:product_list' %}?category={{ category.id }}" class="category-card">
-                    <img src="{% if category.image %}{{ category.image.url }}{% else %}{% static 'images/category-placeholder.jpg' %}{% endif %}" alt="{{ category.name }}">
+                    <img src="{% if category.image %}{{ category.image.url }}{% else %}{% static 'images/category-placeholder.jpg' %}{% endif %}" alt=" ">
                     <span>{{ category.name }}</span>
                 </a>
             {% empty %}

@@ -9,7 +9,7 @@ from .forms import ReceiptUploadForm
 from .models import Order, OrderItem
 from cart.cart import Cart
 import urllib.parse
-from .utils import send_sms  # Make sure this exists
+
 
 # SUCCESS PAGE
 @login_required
